@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mercadotech
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: mercadotech
+  template:
+    metadata:
+      labels:
+        app: mercadotech
+    spec:
+      containers:
+      - image: dockerhub.io/rahulblue31/mercadotech:v2
+        name: mercadotech
+        ports:
+        - containerPort: 80

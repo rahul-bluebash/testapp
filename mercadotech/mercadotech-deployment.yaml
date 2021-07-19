@@ -14,7 +14,7 @@ spec:
         app: mercadotech
     spec:
       containers:
-      - image: dockerhub.io/rahulblue31/mercadotech:v2
+      - image: docker.io/rahulblue31/mercadotech:v2
         name: mercadotech
         ports:
         - containerPort: 80

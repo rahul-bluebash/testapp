@@ -41,7 +41,7 @@ spec:
         app: mercadotech
     spec:
       containers:
-      - image: docker.io/rahulblue31/mercadotech-dev:latest
+      - image: docker.io/spreecommerce/spree:3.6.4
         name: mercadotech
         env:
         - name: DATABASE_HOST

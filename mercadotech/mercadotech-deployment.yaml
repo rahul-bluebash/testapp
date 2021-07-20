@@ -27,7 +27,7 @@ spec:
         volumeMounts:
         - name: mercadotech-persistent-storage
           mountPath: /var/www/compra
-        volumes:
-        - name: mercadotech-persistent-storage
-          persistentVolumeClaim:
-            claimName: mt-pv-claim
+      volumes:
+      - name: mercadotech-persistent-storage
+        persistentVolumeClaim:
+          claimName: mt-pv-claim

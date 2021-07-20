@@ -77,4 +77,4 @@ spec:
       - image: docker.io/spreecommerce/spree:3.6.4
         name: mercadotech
         ports:
-        - containerPort: 80
+        - containerPort: 3000

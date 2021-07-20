@@ -41,12 +41,12 @@ spec:
         app: mercadotech
     spec:
       containers:
-      - image: docker.io/rahulblue31/mercadotech:v2
+      - image: docker.io/rahulblue31/mercadotech-dev:latest
         name: mercadotech
         env:
-        - name: MERCADOTECH_DB_HOST
+        - name: DATABASE_HOST
           value: mercadotech-mysql
-        - name: MERCADOTECH_DB_PASSWORD
+        - name: DATABASE_PASSWORD
           value: Root@123
         ports:
         - containerPort: 80

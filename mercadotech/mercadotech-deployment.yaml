@@ -16,5 +16,18 @@ spec:
       containers:
       - image: docker.io/rahulblue31/mercadotech:v2
         name: mercadotech
+        env:
+        - name: MERCADOTECH_DB_HOST
+          value: mercadotech-mysql
+        - name: MERCADOTECH_DB_PASSWORD
+          value: Root@123
         ports:
         - containerPort: 80
+          name: mercadotech
+        volumeMounts:
+        - name: mercadotech-persistent-storage
+          mountpath: /var/www/compra
+        volumes:
+        - name: mercadotech-persistent-storage
+          persistentVolumeClaim:
+            claimName: mt-pv-claim

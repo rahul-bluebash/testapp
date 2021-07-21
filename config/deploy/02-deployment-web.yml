@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-sample-app-web
+  labels:
+    name: k8s-sample-app-web
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      name: k8s-sample-app-web
+  template:
+    metadata:
+      labels:
+        name: k8s-sample-app-web
+    spec:
+      initContainers:
+        - name: k8s-sample-app-web-migrate
+          image: docker.io/rahulblue31/mercadotech:v0.2
+          args: ["bundle", "exec", "rake", "db:create", "db:migrate"]
+          envFrom:
+            - configMapRef:
+                name: k8s-sample-app-config
+          env:
+            - name: SECRET_KEY_BASE
+              valueFrom:
+                secretKeyRef:
+                  name: k8s-sample-app-secrets
+                  key: secret_key_base
+            - name: DATABASE_HOST
+              value: k8s-sample-app-mysql
+            - name: DB_PASSWORD
+              value: Root@123
+      containers:
+        - name: k8s-sample-app-web
+          image: docker.io/rahulblue31/mercadotech:v0.2
+          args: ["bundle", "exec", "rails", "server", "-p", "3001"]
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+          ports:
+            - containerPort: 3001
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 3001
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 1
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: 3001
+          #   initialDelaySeconds: 5
+          #   timeoutSeconds: 1
+          envFrom:
+            - configMapRef:
+                name: k8s-sample-app-config
+          env:
+            - name: DATABASE_HOST
+              value: k8s-sample-app-mysql
+            - name: DB_PASSWORD
+              value: Root@123
+            - name: DB_USER
+              value: root
